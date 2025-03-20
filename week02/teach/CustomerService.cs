@@ -1,12 +1,14 @@
-﻿/// <summary>
+﻿using System.Diagnostics;
+
+/// <summary>
 /// Maintain a Customer Service Queue.  Allows new customers to be 
 /// added and allows customers to be serviced.
 /// </summary>
 public class CustomerService {
     public static void Run() {
         // Example code to see what's in the customer service queue:
-        // var cs = new CustomerService(10);
-        // Console.WriteLine(cs);
+        var cs = new CustomerService(10);
+        Console.WriteLine(cs);
 
         // Test Cases
 
@@ -14,7 +16,12 @@ public class CustomerService {
         // Scenario: 
         // Expected Result: 
         Console.WriteLine("Test 1");
-
+        var test1 = new CustomerService(0);
+        var test1a = new CustomerService(-1);
+        var test1b = new CustomerService(5);
+        Console.WriteLine("If 0: " + test1);
+        Console.WriteLine("Negative: " + test1a);
+        Console.WriteLine("If 5: " + test1b);
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
@@ -23,12 +30,37 @@ public class CustomerService {
         // Scenario: 
         // Expected Result: 
         Console.WriteLine("Test 2");
+        // cs.AddNewCustomer();
+        // Console.WriteLine("Queue:");
+        // foreach (var i in cs._queue) {
+        //     Console.WriteLine(i);
+        // }
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+         // Test 3
+        // Scenario: 
+        // Expected Result: 
+        Console.WriteLine("Test 3");
+        var test3 = new CustomerService(1);
+        Console.WriteLine(test3);
+        test3.AddNewCustomer();
+        Console.WriteLine(test3);
+        test3.AddNewCustomer();
+        Console.WriteLine(test3);
+
+        // Defect(s) Found: 
+
+
+        Console.WriteLine("=================");
+
+         // Test 4
+        // Scenario: 
+        // Expected Result: 
+        Console.WriteLine("Test 4");
+        // Defect(s) Found: 
     }
 
     private readonly List<Customer> _queue = new();
