@@ -33,6 +33,17 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+        Node newNode = new(value);
+
+        if (_tail is null){
+            InsertHead(value);
+        }
+        else{
+            _tail.Next = newNode;
+            newNode.Prev = _tail;
+            _tail = newNode;
+        }
+        
     }
 
 
@@ -65,6 +76,13 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        if (_tail == _head) {
+            _head = null;
+            _tail = null;
+        } else if (_tail is not null) {
+            _tail.Prev!.Next = null;
+            _tail = _tail.Prev;
+        }
     }
 
     /// <summary>
@@ -109,6 +127,23 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        var current = _head;
+        while (current != null) {
+            if (current.Data == value) {
+                if (current == _head) {
+                    RemoveHead();
+                } else if (current == _tail) {
+                    RemoveTail();
+                } else {
+                //remove node
+                current.Next!.Prev = current.Prev;
+                current.Prev!.Next = current.Next;
+                }
+            }
+            else {
+                current = current.Next;
+            }
+        }
     }
 
     /// <summary>
@@ -117,6 +152,16 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        var current = _head;
+        while (current != null) {
+            if (current.Data == oldValue) {
+                //replace node
+                current.Data = newValue;
+            }
+            else {
+                current = current.Next;
+            }
+        }
     }
 
     /// <summary>
@@ -147,7 +192,12 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        var curr = _tail; // Start at the beginning since this is a forward iteration.
+        while (curr is not null)
+        {
+            yield return curr.Data; // Provide (yield) each item to the user
+            curr = curr.Prev; // Go forward in the linked list
+        }
     }
 
     public override string ToString()
